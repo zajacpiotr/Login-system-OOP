@@ -33,6 +33,11 @@
                     <input type="text" name="lastName" class="form-control" id="inputLastName">
                     <span class="error"></span>
                 </p>
+                <p>
+                    <label for="inputEmail">Email:</label>
+                    <input type="text" name="email" class="form-control" id="inputEmail">
+                    <span class="error"></span>
+                </p>
                 <input type="submit" value="Register" class="btn btn-primary">
                 <p class="error">
                 </p>

@@ -40,4 +40,18 @@ class Validation extends DBConfig
         }
         
     }
+    public function isEmailValid($field)
+    {
+        $pattern = "^[a-z\'0-9]+([._-][a-z\'0-9]+)*@([a-z0-9]+([._-][a-z0-9]+))+$";
+        if (preg_match($pattern, $field)) {
+            list($user, $domain) = split('@', $field);
+            if (checkdnsrr($domain,"MX")) {
+                return true;
+                } else {
+                return false;
+                }
+        } else {
+            return false;
+        }
+    }
 }
