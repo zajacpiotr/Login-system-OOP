@@ -12,7 +12,7 @@ class Validation extends DBConfig
         $msg= null;
         foreach ($fields as $value) {
             if (empty($data[$value])) {
-                $msg .= "$value empty <br />";
+                $msg = "All fields must be filled";
             }
         }
         return $msg;

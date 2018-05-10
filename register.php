@@ -4,13 +4,17 @@
 include_once("layout_header.php");
 include_once("Class/Validation.php");
 
-$email = $msg = $errorMsg = $emailErr = "";
+$username = $name = $lastName = $email = "";
+$msg = $errorMsg = $emailErr = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $validation = new Validation();
     
-    $email = $_POST['email'];
+    $username = $_POST["username"];
+    $name = $_POST["name"];
+    $lastName = $_POST["lastName"];
+    $email = $_POST["email"];
     
-    $msg = $validation->checkEmpty($_POST, array('email'));
+    $msg = $validation->checkEmpty($_POST, array("username", "password", "passwordR", "name","lastName", "email"));
     $checkEmail = $validation->isEmailValid($email);
     
     if($msg != null) {
@@ -30,7 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <p>Please fill the form to make new account.</p>
                 <p>
                     <label for="inputUsername">Username:</label>
-                    <input type="text" name="username" class="form-control" id="inputUsername">
+                    <input type="text" name="username" class="form-control" id="inputUsername" value="<?php echo $username; ?>">
                     <span class="error"></span>
                 </p>
                 <p>
@@ -45,17 +49,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </p>
                 <p>
                     <label for="inputName">First Name:</label>
-                    <input type="text" name="name" class="form-control" id="inputName">
+                    <input type="text" name="name" class="form-control" id="inputName" value="<?php echo $name; ?>">
                     <span class="error"></span>
                 </p>
                 <p>
                     <label for="inputLastName">Last Name:</label>
-                    <input type="text" name="lastName" class="form-control" id="inputLastName">
+                    <input type="text" name="lastName" class="form-control" id="inputLastName" value="<?php echo $lastName; ?>">
                     <span class="error"></span>
                 </p>
                 <p>
                     <label for="inputEmail">Email:</label>
-                    <input type="text" name="email" class="form-control" id="inputEmail">
+                    <input type="text" name="email" class="form-control" id="inputEmail" value="<?php echo $email; ?>">
                     <span class="error"><?php echo $emailErr; ?></span>
                 </p>
                 <input type="submit" value="Register" class="btn btn-primary">
