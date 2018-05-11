@@ -4,7 +4,7 @@
 include_once("layout_header.php");
 include_once("Class/Validation.php");
 
-$username = $name = $lastName = $email = "";
+$username = $name = $lastName = $email = $password = "";
 $msg = $errorMsg = $emailErr = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $validation = new Validation();
@@ -13,9 +13,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $name = $_POST["name"];
     $lastName = $_POST["lastName"];
     $email = $_POST["email"];
+    $password = $_POST["password"];
     
     $msg = $validation->checkEmpty($_POST, array("username", "password", "passwordR", "name","lastName", "email"));
-    $checkEmail = $validation->isEmailValid($email);
+    $checkEmail = $validation->isEmailValid($_POST["email"]);
+    $checkName = $validation->isValid($_POST["name"]);
+    $checkUsername = $validation->isValidUsername($_POST["username"]);
+    $checklastName = $validation->isValid($_POST["lastName"]);
     
     if($msg != null) {
         $errorMsg= $msg; 
@@ -29,7 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 ?>
     <div id="conteiner">
         <form action="register.php" method="post">
-            <div class="form-groemailup">
+            <div class="form-group">
                 <h1>Register </h1>
                 <p>Please fill the form to make new account.</p>
                 <p>
@@ -43,8 +47,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <span class="error"></span>
                 </p>
                 <p>
-                    <label for="inputPasswordR">Repeat password:</label>
-                    <input type="password" name="passwordR" class="form-control" id="inputPasswordR">
+                    <label for="inputPasswordR">Confirm password:</label>
+                    <input type="password" name="passwordConfirm" class="form-control" id="inputPasswordConfirm">
                     <span class="error"></span>
                 </p>
                 <p>
@@ -65,6 +69,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="submit" value="Register" class="btn btn-primary">
                 <p class="error">
                     <?php echo $errorMsg; ?>
+                </p>
+                <p class="error">
+                    <?php echo $password; ?>
                 </p>
             </div>
         </form>

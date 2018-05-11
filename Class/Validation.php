@@ -26,6 +26,16 @@ class Validation extends DBConfig
         } 
         return false;
     }
+    public function isValidUsername($field) 
+    {
+        
+        if (preg_match("/^([A-ZĆÓŁŚŻŹ]{1})([a-zA-ZąśżźćęńłóĄŚŻŹĆŃŁÓ0-9_.-]{2,11})$/", $field)) {
+            if(strlen($field)>2) {
+            return true;
+            }
+        } 
+        return false;
+    }
     public function read($query)
     {
         $stmt = $this->connection->prepare($query);
