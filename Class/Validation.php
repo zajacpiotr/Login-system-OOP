@@ -13,6 +13,7 @@ class Validation extends DBConfig
         foreach ($fields as $value) {
             if (empty($data[$value])) {
                 $msg = "All fields must be filled";
+                //$msg .= "$value empty <br />";
             }
         }
         return $msg;
@@ -29,7 +30,7 @@ class Validation extends DBConfig
     public function isValidUsername($field) 
     {
         
-        if (preg_match("/^([A-ZĆÓŁŚŻŹ]{1})([a-zA-ZąśżźćęńłóĄŚŻŹĆŃŁÓ0-9_.-]{2,11})$/", $field)) {
+        if (preg_match("/^[a-zA-ZąśżźćęńłóĄŚŻŹĆŃŁÓ0-9_.-]{2,11}$/", $field)) {
             if(strlen($field)>2) {
             return true;
             }

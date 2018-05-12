@@ -4,8 +4,8 @@
 include_once("layout_header.php");
 include_once("Class/Validation.php");
 
-$username = $name = $lastName = $email = $password = "";
-$msg = $errorMsg = $emailErr = "";
+$username= $name= $lastName= $email= $password= "";
+$msg= $errorMsg= $emailErr= $usernameErr= $lastNameErr= $nameErr= "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $validation = new Validation();
     
@@ -14,20 +14,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $lastName = $_POST["lastName"];
     $email = $_POST["email"];
     $password = $_POST["password"];
+    $passwordConfirm = $_POST["passwordConfirm"];
     
-    $msg = $validation->checkEmpty($_POST, array("username", "password", "passwordR", "name","lastName", "email"));
+    $msg = $validation->checkEmpty($_POST, array("username", "password", "passwordConfirm", "name","lastName", "email"));
     $checkEmail = $validation->isEmailValid($_POST["email"]);
     $checkName = $validation->isValid($_POST["name"]);
     $checkUsername = $validation->isValidUsername($_POST["username"]);
     $checklastName = $validation->isValid($_POST["lastName"]);
     
     if($msg != null) {
-        $errorMsg= $msg; 
+            $errorMsg= $msg; 
     } elseif (!$checkEmail) {
-            $emailErr= "Podaj prawidłowy adres email";
-        } else {
-            
-        }
+            $emailErr= "Please enter correct Email";
+    } elseif(!$checkName) {
+            $nameErr="Please enter correct First Name";
+    } elseif(!$checklastName) {
+            $lastNameErr="Please enter correct Last Name";
+    } elseif(!$checkUsername) {
+            $usernameErr="Please enter correct Username";
+    }
     }
 
 ?>
@@ -39,27 +44,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <p>
                     <label for="inputUsername">Username:</label>
                     <input type="text" name="username" class="form-control" id="inputUsername" value="<?php echo $username; ?>">
-                    <span class="error"></span>
+                    <span class="error"><?php echo $usernameErr; ?></span>
                 </p>
                 <p>
                     <label for="inputPassword">Password:</label>
-                    <input type="password" name="password" class="form-control" id="inputPassword">
+                    <input type="password" name="password" class="form-control" id="inputPassword" value="<?php echo $password; ?>">
                     <span class="error"></span>
                 </p>
                 <p>
-                    <label for="inputPasswordR">Confirm password:</label>
-                    <input type="password" name="passwordConfirm" class="form-control" id="inputPasswordConfirm">
+                    <label for="inputPasswordConfirm">Confirm password:</label>
+                    <input type="password" name="passwordConfirm" class="form-control" id="inputPasswordConfirm" value="<?php echo $passwordConfirm; ?>">
                     <span class="error"></span>
                 </p>
                 <p>
                     <label for="inputName">First Name:</label>
                     <input type="text" name="name" class="form-control" id="inputName" value="<?php echo $name; ?>">
-                    <span class="error"></span>
+                    <span class="error"><?php echo $nameErr; ?></span>
                 </p>
                 <p>
                     <label for="inputLastName">Last Name:</label>
                     <input type="text" name="lastName" class="form-control" id="inputLastName" value="<?php echo $lastName; ?>">
-                    <span class="error"></span>
+                    <span class="error"><?php echo $lastNameErr; ?></span>
                 </p>
                 <p>
                     <label for="inputEmail">Email:</label>
@@ -69,9 +74,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="submit" value="Register" class="btn btn-primary">
                 <p class="error">
                     <?php echo $errorMsg; ?>
-                </p>
-                <p class="error">
-                    <?php echo $password; ?>
                 </p>
             </div>
         </form>
