@@ -4,8 +4,8 @@
 include_once("layout_header.php");
 include_once("Class/Validation.php");
 
-$username= $name= $lastName= $email= $password= "";
-$msg= $errorMsg= $emailErr= $usernameErr= $lastNameErr= $nameErr= "";
+$username= $name= $lastName= $email= $password= $passwordConfirm = "";
+$msg= $errorMsg= $emailErr= $usernameErr= $lastNameErr= $nameErr= $error= "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $validation = new Validation();
     
@@ -32,9 +32,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $lastNameErr="Please enter correct Last Name";
     } elseif(!$checkUsername) {
             $usernameErr="Please enter correct Username";
+    } else { 
+        $query = "SELECT * FROM users WHERE username = '$username'";
+        $stmt = $validation->read($query);
+        if ($stmt) {
+           $error= "This username is actually busy";
+       }
     }
-    }
-
+}
 ?>
     <div id="conteiner">
         <form action="register.php" method="post">
@@ -73,7 +78,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </p>
                 <input type="submit" value="Register" class="btn btn-primary">
                 <p class="error">
-                    <?php echo $errorMsg; ?>
+                    <?php echo $errorMsg;
+                          echo $error; ?>
                 </p>
             </div>
         </form>
