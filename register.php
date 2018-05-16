@@ -5,7 +5,7 @@ include_once("layout_header.php");
 include_once("Class/Validation.php");
 
 $username= $name= $lastName= $email= $password= $passwordConfirm = "";
-$msg= $errorMsg= $emailErr= $usernameErr= $lastNameErr= $nameErr= $error= "";
+$msg= $errorMsg= $emailErr= $usernameErr= $lastNameErr= $nameErr= $error= $passwordConfirmErr= "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $validation = new Validation();
     
@@ -32,14 +32,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $lastNameErr="Please enter correct Last Name";
     } elseif(!$checkUsername) {
             $usernameErr="Please enter correct Username";
+    } elseif($password!=$passwordConfirm) {
+            $passwordConfirmErr="Password isn't the same";
     } else { 
         $query = "SELECT * FROM users WHERE username = '$username'";
         $stmt = $validation->read($query);
         if ($stmt) {
-           $error= "This username is actually busy";
+           $error.= "This Username is actually busy <br />";
        }
-    }
+        $query = "SELECT * FROM users WHERE email = '$email'";
+        $stmt = $validation->read($query);
+        if ($stmt) {
+           $error.= "This Email is actually busy <br />";
+       }
+    } 
 }
+
 ?>
     <div id="conteiner">
         <form action="register.php" method="post">
@@ -59,7 +67,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <p>
                     <label for="inputPasswordConfirm">Confirm password:</label>
                     <input type="password" name="passwordConfirm" class="form-control" id="inputPasswordConfirm" value="<?php echo $passwordConfirm; ?>">
-                    <span class="error"></span>
+                    <span class="error"><?php echo $passwordConfirmErr; ?></span>
                 </p>
                 <p>
                     <label for="inputName">First Name:</label>
