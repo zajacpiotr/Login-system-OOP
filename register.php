@@ -55,6 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if ($stmt) {
            $error.= "This Email is actually busy <br />";
        }
+    $password= password_hash($password, PASSWORD_DEFAULT);
     } 
 }
 
@@ -71,12 +72,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </p>
                 <p>
                     <label for="inputPassword">Password:</label>
-                    <input type="password" name="password" class="form-control" id="inputPassword" value="<?php echo $password; ?>">
+                    <input type="password" name="password" class="form-control" id="inputPassword">
                     <span class="error"><?php echo $passwordErr; ?></span>
                 </p>
                 <p>
                     <label for="inputPasswordConfirm">Confirm password:</label>
-                    <input type="password" name="passwordConfirm" class="form-control" id="inputPasswordConfirm" value="<?php echo $passwordConfirm; ?>">
+                    <input type="password" name="passwordConfirm" class="form-control" id="inputPasswordConfirm">
                     <span class="error"><?php echo $passwordConfirmErr; ?></span>
                 </p>
                 <p>
