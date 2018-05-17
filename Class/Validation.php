@@ -65,4 +65,13 @@ class Validation extends DBConfig
             return false;
         }
     }
+    public function isPasswordValid($field)
+    {
+        $pattern = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/";
+        if (preg_match($pattern, $field)) {
+            return true;
+        } else {
+            return false;
+        } 
+    }
 }

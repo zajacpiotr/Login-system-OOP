@@ -5,7 +5,7 @@ include_once("layout_header.php");
 include_once("Class/Validation.php");
 
 $username= $name= $lastName= $email= $password= $passwordConfirm = "";
-$msg= $errorMsg= $emailErr= $usernameErr= $lastNameErr= $nameErr= $error= $passwordConfirmErr= "";
+$msg= $errorMsg= $emailErr= $usernameErr= $lastNameErr= $nameErr= $error= $passwordConfirmErr= $passwordErr= "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $validation = new Validation();
     
@@ -20,18 +20,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $checkEmail = $validation->isEmailValid($_POST["email"]);
     $checkName = $validation->isValid($_POST["name"]);
     $checkUsername = $validation->isValidUsername($_POST["username"]);
-    $checklastName = $validation->isValid($_POST["lastName"]);
+    $checkLastName = $validation->isValid($_POST["lastName"]);
+    $checkPassword = $validation->isPasswordValid($_POST["password"]);
     
+    $username= htmlspecialchars(strip_tags($username));
+    $name= htmlspecialchars(strip_tags($name));
+    $lastName= htmlspecialchars(strip_tags($lastName));
+    $email= htmlspecialchars(strip_tags($email));
+    $password= htmlspecialchars(strip_tags($password));
+    $passwordConfirm= htmlspecialchars(strip_tags($passwordConfirm));
+        
     if($msg != null) {
             $errorMsg= $msg; 
     } elseif (!$checkEmail) {
             $emailErr= "Please enter correct Email";
     } elseif(!$checkName) {
             $nameErr="Please enter correct First Name";
-    } elseif(!$checklastName) {
+    } elseif(!$checkLastName) {
             $lastNameErr="Please enter correct Last Name";
     } elseif(!$checkUsername) {
             $usernameErr="Please enter correct Username";
+    } elseif(!$checkPassword) {
+            $passwordErr="Please enter correct password";
     } elseif($password!=$passwordConfirm) {
             $passwordConfirmErr="Password isn't the same";
     } else { 
@@ -62,7 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <p>
                     <label for="inputPassword">Password:</label>
                     <input type="password" name="password" class="form-control" id="inputPassword" value="<?php echo $password; ?>">
-                    <span class="error"></span>
+                    <span class="error"><?php echo $passwordErr; ?></span>
                 </p>
                 <p>
                     <label for="inputPasswordConfirm">Confirm password:</label>
