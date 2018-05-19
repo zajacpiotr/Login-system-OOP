@@ -61,7 +61,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $password= password_hash($password, PASSWORD_DEFAULT);
             $stmt = $core->insert($username,$password,$name,$lastName,$email) ;
             if($stmt){
-                $insertMsg= "This person added to database";
+                header("Location:index.php");
             }
         } 
 }
@@ -103,9 +103,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <span class="error"><?php echo $emailErr; ?></span>
                 </p>
                 <input type="submit" value="Register" class="btn btn-primary">
-                <p class="success">
-                    <?php echo $insertMsg; ?>
-                </p>
                 <p class="error">
                     <?php echo $errorMsg;
                           echo $error; ?>
