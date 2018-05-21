@@ -57,10 +57,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if ($stmt) {
            $error.= "This Email is actually busy <br />";
        }
-    } if(empty($error)) {
+        unset($stmt);
+    } if(empty($error)&& empty($emailErr)&& empty($nameErr)&& empty($lastNameErr)&& empty($usernameErr)&& empty($passwordErr)&& empty($passwordConfirmErr)&& empty($errorMsg)) {
             $password= password_hash($password, PASSWORD_DEFAULT);
             $stmt = $core->insert($username,$password,$name,$lastName,$email) ;
             if($stmt){
+                //$insertMsg= "This person added to database";
                 header("Location:index.php");
             }
         } 
@@ -103,6 +105,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <span class="error"><?php echo $emailErr; ?></span>
                 </p>
                 <input type="submit" value="Register" class="btn btn-primary">
+                <p class="success">
+                    <?php //echo $insertMsg?>
+                </p>
                 <p class="error">
                     <?php echo $errorMsg;
                           echo $error; ?>
