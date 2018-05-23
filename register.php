@@ -1,22 +1,15 @@
 <?php
- $pageTitle = "Register form";
+$pageTitle = "Register form";
 
 include_once("layout_header.php");
 include_once("Class/Validation.php");
 include_once("Class/Core.php");
 
 $username= $name= $lastName= $email= $password= $passwordConfirm = "";
-$msg= $errorMsg= $emailErr= $usernameErr= $lastNameErr= $nameErr= $error= $passwordConfirmErr= $passwordErr= $insertMsg="";
+$msg= $errorMsg= $emailErr= $usernameErr= $lastNameErr= $nameErr= $error= $passwordConfirmErr= $passwordErr= $insertMsg= "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $validation = new Validation();
     $core = new Core();
-    
-    $username = $_POST["username"];
-    $name = $_POST["name"];
-    $lastName = $_POST["lastName"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $passwordConfirm = $_POST["passwordConfirm"];
     
     $msg = $validation->checkEmpty($_POST, array("username", "password", "passwordConfirm", "name","lastName", "email"));
     $checkEmail = $validation->isEmailValid($_POST["email"]);
@@ -25,12 +18,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $checkLastName = $validation->isValid($_POST["lastName"]);
     $checkPassword = $validation->isPasswordValid($_POST["password"]);
     
-    $username= htmlspecialchars(strip_tags($username));
-    $name= htmlspecialchars(strip_tags($name));
-    $lastName= htmlspecialchars(strip_tags($lastName));
-    $email= htmlspecialchars(strip_tags($email));
-    $password= htmlspecialchars(strip_tags($password));
-    $passwordConfirm= htmlspecialchars(strip_tags($passwordConfirm));
+    $username= htmlspecialchars(strip_tags($_POST["username"]));
+    $name= htmlspecialchars(strip_tags($_POST["name"]));
+    $lastName= htmlspecialchars(strip_tags($_POST["lastName"]));
+    $email= htmlspecialchars(strip_tags($_POST["email"]));
+    $password= htmlspecialchars(strip_tags($_POST["password"]));
+    $passwordConfirm= htmlspecialchars(strip_tags($_POST["passwordConfirm"]));
         
     if($msg != null) {
             $errorMsg= $msg; 
@@ -62,7 +55,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $password= password_hash($password, PASSWORD_DEFAULT);
             $stmt = $core->insert($username,$password,$name,$lastName,$email) ;
             if($stmt){
-                //$insertMsg= "This person added to database";
                 header("Location:index.php");
             }
         } 
