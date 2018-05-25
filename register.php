@@ -5,8 +5,8 @@ include_once("layout_header.php");
 include_once("Class/Validation.php");
 include_once("Class/Core.php");
 
-$username= $name= $lastName= $email= $password= $passwordConfirm = "";
-$msg= $errorMsg= $emailErr= $usernameErr= $lastNameErr= $nameErr= $error= $passwordConfirmErr= $passwordErr= $insertMsg= "";
+$username= $name= $lastName= $email= $password= $passwordConfirm = $checkbox= "";
+$msg= $errorMsg= $emailErr= $usernameErr= $lastNameErr= $nameErr= $error= $passwordConfirmErr= $passwordErr= $insertMsg= $checkboxErr=  "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $validation = new Validation();
     $core = new Core();
@@ -24,6 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $email= htmlspecialchars(strip_tags($_POST["email"]));
     $password= htmlspecialchars(strip_tags($_POST["password"]));
     $passwordConfirm= htmlspecialchars(strip_tags($_POST["passwordConfirm"]));
+    //$checkbox= $_POST["checkbox"];
         
     if($msg != null) {
             $errorMsg= $msg; 
@@ -39,6 +40,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $passwordErr="Please enter correct password";
     } elseif($password!=$passwordConfirm) {
             $passwordConfirmErr="Password isn't the same";
+    } elseif((empty($_POST["checkbox"]))) {
+            $checkboxErr="To create new account you must authorisation to process personal data";
     } else { 
         $query = "SELECT * FROM users WHERE username = '$username'";
         $stmt = $validation->read($query);
@@ -51,7 +54,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
            $error.= "This Email is actually busy <br />";
        }
         unset($stmt);
-    } if(empty($error)&& empty($emailErr)&& empty($nameErr)&& empty($lastNameErr)&& empty($usernameErr)&& empty($passwordErr)&& empty($passwordConfirmErr)&& empty($errorMsg)) {
+    } if(empty($error)&& empty($emailErr)&& empty($nameErr)&& empty($lastNameErr)&& empty($usernameErr)&& empty($passwordErr)&& empty($passwordConfirmErr)&& empty($errorMsg)&& empty($checkboxErr)) {
             $password= password_hash($password, PASSWORD_DEFAULT);
             $stmt = $core->insert($username,$password,$name,$lastName,$email) ;
             if($stmt){
@@ -95,6 +98,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <label for="inputEmail">Email:</label>
                     <input type="text" name="email" class="form-control" id="inputEmail" value="<?php echo $email; ?>">
                     <span class="error"><?php echo $emailErr; ?></span>
+                </p>
+                <p class="inline-field">
+                    <input type="checkbox" name="checkbox" />
+                    <label for="checkbox">Wyrażam zgodę na przetwarzanie moich danych osobowych zgodnie z ustawą o ochronie danych osobowych w celu ... . Podanie danych osobowych jest dobrowolne. Zostałem poinformowany, że przysługuje mi prawo dostępu do swoich danych, możliwości ich poprawienia, żądania zaprzestana ich przetwarzania. Administratorem danych jest (nazwa firmy z pełnym adresem).</label>
+                    <span class="error"><?php echo $checkboxErr; ?></span>
                 </p>
                 <input type="submit" value="Register" class="btn btn-primary">
                 <p class="success">

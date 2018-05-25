@@ -10,3 +10,13 @@
     width: 30%;
     margin: 40px auto;
 }
+
+.inline-field input {
+    float: left;
+}
+
+.inline-field label {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
