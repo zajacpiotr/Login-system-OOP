@@ -101,7 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </p>
                 <p class="inline-field">
                     <input type="checkbox" name="checkbox" />
-                    <label for="checkbox"><span>I declare that I have read the </span> <a type="button" class="popover-btn" data-container="body" data-toggle="popover" data-placement="top" data-content="I consent to the processing of my personal data in accordance with the Law on the Protection of Personal Data for the purpose .... Providing personal information is voluntary. I have been informed that I have the right to access my data, the possibility of correcting it and removing it. The data administrator is (company name with full address).">terms and conditions</a></label><br>
+                    <label for="checkbox"><span>I declare that I have read the </span> <a type="button" class="popover-btn" data-container="body" data-toggle="popover" data-placement="top" data-content="I consent to the processing of my personal data in accordance with the Law on the Protection of Personal Data for the purpose .... Providing personal information is voluntary. I have been informed that I have the right to access my data, the possibility of correcting it and removing it. The data administrator is (company name with full address).">terms and conditions</a><span>.</span></label><br>
                     <span class="error"><?php echo $checkboxErr; ?></span>
                 </p>
                 <input type="submit" value="Register" class="btn btn-primary">
