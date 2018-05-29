@@ -2,6 +2,7 @@
 $pageTitle = "Register form";
 
 include_once("layout_header.php");
+include_once("login_header.php");
 include_once("Class/Validation.php");
 include_once("Class/Core.php");
 

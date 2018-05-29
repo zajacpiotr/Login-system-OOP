@@ -14,6 +14,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     $msg = $validation->checkEmpty($_POST, array("username", "password"));
     
+    $username= htmlspecialchars(strip_tags($_POST["username"]));
+    $password= htmlspecialchars(strip_tags($_POST["password"]));
+    
     if($msg != null) {
             $errorMsg= $msg; 
     }
@@ -32,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </p>
                 <p>
                     <label for="inputPassword">Password:</label>
-                    <input type="text" name="password" class="form-control" id="inputPassword">
+                    <input type="password" name="password" class="form-control" id="inputPassword">
                     <span class="error"></span>
                 </p>
                 <input type="submit" value="Login" class="btn btn-primary">

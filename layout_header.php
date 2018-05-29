@@ -9,7 +9,7 @@
         <?php echo $pageTitle ?>
     </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script type="text/javascript" src="bootstrap-popover-btn.js"></script>
+    <script type="text/javascript" src="popover.js"></script>
     <link type="text/css" rel="stylesheet" href="css/style.css" />
 </head>
 
