@@ -6,7 +6,7 @@ include_once("Class/Validation.php");
 include_once("Class/Core.php");
 
 $username= $password= "";
-$errorMsg= "";
+$errorMsg= $error=  "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $validation = new Validation();
@@ -19,11 +19,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     if($msg != null) {
             $errorMsg= $msg; 
+    } else { 
+        $query = "SELECT username, password FROM users WHERE username = '$username'";
+        $stmt = $validation->read($query);
+        if (!$stmt) {
+           $error.= "Unfortunetly login or password is incorrect.";
+       } else {
+            
+            
+        }
     }
-    
 }
 ?>
-    <div id="conteiner">
+    <div class="col-sm-4 col-sm-offset-4">
         <form action="index.php" method="post">
             <div class="form-group">
                 <h1>Login (under construction) </h1>
@@ -43,6 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </p>
                 <p class="error">
                     <?php echo $errorMsg;
+                          echo $error;
                     ?>
                 </p>
                 <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>

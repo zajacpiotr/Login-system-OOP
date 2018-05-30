@@ -6,12 +6,8 @@
     color: green;
 }
 
-#conteiner {
-    width: 30%;
-    margin: 10px auto;
-}
-
 .loginHeader {
     height: 28px;
+    margin-top: 4px;
     border-bottom: 1px solid black;
 }

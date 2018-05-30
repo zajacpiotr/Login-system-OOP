@@ -66,7 +66,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 ?>
     <div class="row">
-        <div id="conteiner">
+        <div class="col-sm-4 col-sm-offset-4">
             <form action="register.php" method="post">
                 <div class="form-group">
                     <h1>Register </h1>
@@ -116,7 +116,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     </p>
                 </div>
             </form>
-
         </div>
     </div>
     <script>
