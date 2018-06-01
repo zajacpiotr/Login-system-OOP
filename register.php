@@ -38,7 +38,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } elseif(!$checkUsername) {
             $usernameErr="Please enter correct Username";
     } elseif(!$checkPassword) {
-            $passwordErr="Please enter correct password";
+            $passwordErr="Password must be at least 8 characters with uppercase letters and number";
     } elseif($password!=$passwordConfirm) {
             $passwordConfirmErr="Password isn't the same";
     } elseif((empty($_POST["checkbox"]))) {
@@ -46,12 +46,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else { 
         $query = "SELECT * FROM users WHERE username = '$username'";
         $stmt = $validation->read($query);
-        if ($stmt) {
+        if ($stmt!=null) {
            $error.= "This Username is actually busy <br />";
        }
         $query = "SELECT * FROM users WHERE email = '$email'";
         $stmt = $validation->read($query);
-        if ($stmt) {
+        if ($stmt!=null) {
            $error.= "This Email is actually busy <br />";
        }
         unset($stmt);

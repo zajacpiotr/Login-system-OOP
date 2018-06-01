@@ -5,8 +5,8 @@ include_once("layout_header.php");
 include_once("Class/Validation.php");
 include_once("Class/Core.php");
 
-$username= $password= "";
-$errorMsg= $error=  "";
+$username= $password=$hashedPassword= "";
+$errorMsg= $error= $passwordErr=  "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $validation = new Validation();
@@ -19,14 +19,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     if($msg != null) {
             $errorMsg= $msg; 
-    } else { 
-        $query = "SELECT username, password FROM users WHERE username = '$username'";
-        $stmt = $validation->read($query);
-        if (!$stmt) {
-           $error.= "Unfortunetly login or password is incorrect.";
-       } else {
+    } else {
+        $stmt = $validation->checkUser($username, $password);
+        if($stmt) {
             
-            
+        } else {
+            $error="Login or password is incorrect";
         }
     }
 }
@@ -44,7 +42,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <p>
                     <label for="inputPassword">Password:</label>
                     <input type="password" name="password" class="form-control" id="inputPassword">
-                    <span class="error"></span>
+                    <span class="error"><?php echo $passwordErr; ?></span>
                 </p>
                 <input type="submit" value="Login" class="btn btn-primary">
                 <p class="success">

@@ -42,14 +42,8 @@ class Validation extends DBConfig
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
         foreach ($stmt as $key => $res) {
-            if (count($res)>0) {
-                return true;
-            } else {
-                return false;
+            return $stmt;   
             }
-            
-        }
-        
     }
     public function isEmailValid($field)
     {
@@ -73,5 +67,24 @@ class Validation extends DBConfig
         } else {
             return false;
         } 
+    }
+    public function checkUser($username, $password)
+    {
+         $query = "SELECT username, password FROM users WHERE username = :username";
+        $stmt = $this->connection->prepare($query);
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+           $stmt->execute();
+                if($stmt->rowCount() == 1){
+                    if($row = $stmt->fetch()){
+                        $hashed_password = $row['password'];
+                        if(password_verify($password, $hashed_password)){  
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                } else {
+                    return false;
+                }
     }
 }
