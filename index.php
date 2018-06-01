@@ -22,7 +22,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
         $stmt = $validation->checkUser($username, $password);
         if($stmt) {
-            
+            session_start();
+            $_SESSION['username'] = $username;      
+            header("location: welcome.php");
         } else {
             $error="Login or password is incorrect";
         }
