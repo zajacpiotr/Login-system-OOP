@@ -13,7 +13,10 @@ include_once("layout_header.php");
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-2 col-xs-offset-10">
+        <div class="col-xs-2 col-xs-offset-1">
+            <p><a href="edit.php" class="btn btn-primary">Edit password</a></p>
+        </div>
+        <div class="col-xs-2 col-xs-offset-7">
             <p><a href="logout.php" class="btn btn-danger">Sign Out</a></p>
         </div>
     </div>

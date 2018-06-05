@@ -34,7 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <div class="col-sm-4 col-sm-offset-4">
         <form action="index.php" method="post">
             <div class="form-group">
-                <h1>Login (under construction) </h1>
+                <h1>Login</h1>
                 <p>Please fill the form to access.</p>
                 <p>
                     <label for="inputUsername">Username:</label>
