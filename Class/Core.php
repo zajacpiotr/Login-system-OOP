@@ -1,5 +1,5 @@
 <?php
-include_once ("DBConfig.php");
+include_once ('DBConfig.php');
 
 class Core extends DBConfig
 {
@@ -9,7 +9,7 @@ class Core extends DBConfig
     }
      public function insert($username,$password,$name,$lastName,$email) 
         { 
-            $query = "INSERT INTO users (username, password, name, last_name, email) VALUES(:username, :password, :name, :lastName, :email)";
+            $query = 'INSERT INTO users (username, password, name, last_name, email) VALUES(:username, :password, :name, :lastName, :email)';
 
             $stmt = $this->connection->prepare($query);
             $stmt->bindParam(':username', $username, PDO::PARAM_STR);
