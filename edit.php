@@ -1,9 +1,5 @@
 <?php
-session_start();
-if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
-  header('location: index.php');
-  exit;
-}
+include_once('session.php');
 $pageTitle = 'Edit Password';
 include_once('layout_header.php');
 ?>

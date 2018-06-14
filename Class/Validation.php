@@ -1,5 +1,5 @@
 <?php
-include_once ("DbConfig.php");
+include_once ('DbConfig.php');
 
 class Validation extends DBConfig
 {
@@ -12,15 +12,14 @@ class Validation extends DBConfig
         $msg= null;
         foreach ($fields as $value) {
             if (empty($data[$value])) {
-                $msg = "All fields must be filled";
-                //$msg .= "$value empty <br />";
+                $msg = 'All fields must be filled';
             }
         }
         return $msg;
     }
     public function isValid($field)
     {
-        if (preg_match("/^[a-zA-ZąęćżźńłóśĄĆĘŁŃÓŚŹŻ\s]+$/", $field)) {
+        if (preg_match('/^[a-zA-ZąęćżźńłóśĄĆĘŁŃÓŚŹŻ\s]+$/', $field)) {
             if(strlen($field)>2) {
             return true;
             }
@@ -30,7 +29,7 @@ class Validation extends DBConfig
     public function isValidUsername($field) 
     {
         
-        if (preg_match("/^[a-zA-ZąśżźćęńłóĄŚŻŹĆŃŁÓ0-9_.-]{2,11}$/", $field)) {
+        if (preg_match('/^[a-zA-ZąśżźćęńłóĄŚŻŹĆŃŁÓ0-9_.-]{2,11}$/', $field)) {
             if(strlen($field)>2) {
             return true;
             }
@@ -47,10 +46,10 @@ class Validation extends DBConfig
     }
     public function isEmailValid($field)
     {
-        $pattern = "/^[a-z\'0-9]+([._-][a-z\'0-9]+)*@([a-z0-9]+([._-][a-z0-9]+))+$/";
+        $pattern = '/^[a-z\'0-9]+([._-][a-z\'0-9]+)*@([a-z0-9]+([._-][a-z0-9]+))+$/';
         if (preg_match($pattern, $field)) {
-            list($user, $domain) = preg_split("/@/", $field);
-            if (checkdnsrr($domain,"MX")) {
+            list($user, $domain) = preg_split('/@/', $field);
+            if (checkdnsrr($domain,'MX')) {
                 return true;
                 } else {
                 return false;
@@ -61,7 +60,7 @@ class Validation extends DBConfig
     }
     public function isPasswordValid($field)
     {
-        $pattern = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/";
+        $pattern = '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/';
         if (preg_match($pattern, $field)) {
             return true;
         } else {
@@ -70,7 +69,7 @@ class Validation extends DBConfig
     }
     public function checkUser($username, $password)
     {
-         $query = "SELECT username, password FROM users WHERE username = :username";
+         $query = 'SELECT username, password FROM users WHERE username = :username';
         $stmt = $this->connection->prepare($query);
             $stmt->bindParam(':username', $username, PDO::PARAM_STR);
            $stmt->execute();
