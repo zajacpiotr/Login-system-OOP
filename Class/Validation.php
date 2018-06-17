@@ -86,4 +86,12 @@ class Validation extends DBConfig
                     return false;
                 }
     }
+    public function checkTheSame($password, $passwordConfirm)
+    {
+        if($password===$passwordConfirm) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
