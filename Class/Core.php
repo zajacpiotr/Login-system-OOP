@@ -26,5 +26,19 @@ class Core extends DBConfig
                 return true;
             }
         }
+    public function update($password,$username) 
+        { 
+            $query = "UPDATE users SET password='$password' WHERE username='$username'";
+
+            $stmt = $this->connection->prepare($query);
+            $stmt->execute();
+
+            if ($stmt == false) {
+                echo 'Error: cannot update';
+                return false;
+            } else {
+                return true;
+            }
+        }
 }
 ?>

@@ -2,7 +2,9 @@
 include_once('session.php');
 $pageTitle = 'Edit Password';
 include_once('layout_header.php');
-//include_once('editLogic.php');
+include_once('Class/Validation.php');
+include_once('Class/Core.php');
+include_once('editLogic.php');
 ?>
     <div class='col-sm-4 col-sm-offset-4'>
         <form action='edit.php' method='post'>
